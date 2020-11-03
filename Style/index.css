@@ -8,7 +8,7 @@ html, body {
     height: 100%;
     border: none;
     overflow-x: hidden;
-    color: white;
+    color: #f0f0f0;
     font-family: 'Montserrat', sans-serif;
     background-color: rgb(9, 9, 22);
     background-image: url("https://siddhart.dev/Storage/Background.png");
@@ -18,12 +18,12 @@ html, body {
     scroll-behavior: smooth;
 }
 
-.hr{
+.hr {
     margin-top: 75px;
     margin-bottom: 75px;
 }
 
-.burr{
+.burr {
     margin-top: 75px;
 }
 
@@ -86,7 +86,7 @@ html, body {
     padding: 5px;
     font-size: 25px;
     background-color: transparent;
-    color: white;
+    color: #f0f0f0;
     border: 2px solid white;
     border-radius: 5px;
 }
@@ -94,12 +94,14 @@ html, body {
 .MORE-ABOUT-ME-BUTTON:hover {
     opacity: 0.5;
     transform: scale(1.05);
+    filter: invert(100%);
+    transition: 0.2s;
     cursor: pointer;
 }
 
 .MORE-ABOUT-ME .TITLE {
     text-align: center;
-    margin-top: 100px;
+    margin-top: -20px;
     font-size: 40px;
     margin-bottom: 50px;
 }
@@ -138,30 +140,30 @@ html, body {
     margin-right: 5px;
 }
 
-.ICONS:hover{
-    opacity: 0.90;
+.icon:hover{
     cursor: pointer;
-    transform: scale(1.015);
+    opacity: 0.75;
 }
 
-.MY-PROJECTS{
+.MY-PROJECTS {
     width: 100%;
     text-align: center;
 }
 
-.MY-PROJECTS .TITLE{
+.MY-PROJECTS .TITLE {
     margin-top: -10px;
     font-size: 40px;
 }
 
-.MY-PROJECTS .UNDERT{
+.MY-PROJECTS .UNDERT {
+    margin-top: 60px;
     font-size: 25px;
 }
 
 /**/
 
 @media only screen and (min-width: 600px) {
-    .GRID{
+    .GRID {
         width: fit-content;
         margin-left: auto;
         margin-right: auto;
@@ -170,8 +172,7 @@ html, body {
         grid-column-gap: 10px;
         grid-row-gap: 10px;
     }
-
-    .GRID2{
+    .GRID2 {
         width: fit-content;
         margin-left: auto;
         margin-right: auto;
@@ -182,33 +183,49 @@ html, body {
     }
 }
 
-.CARD{
+.CARD {
     border: 2px solid white;
     border-radius: 15px;
     width: 250px;
     height: 350px;
-    
     margin-top: 25px;
     margin-left: auto;
     margin-right: auto;
-
     float: left;
     padding: 16px;
     margin-left: 10px;
     margin-right: 10px;
 }
 
-.CARD:hover{
-    border: 2px solid rgba(255, 255, 255, 0.514);
-    transform: translateY(-5px);
+/*HOVER*/
+
+.CARD:hover {
+    border: 2px solid black;
+    /*2px solid rgba(255, 255, 255, 0.514);*/
+    background-color: #f0f0f0;
+    color: black;
+    transition: 0.5s;
 }
 
-.CARD-TITLE{
+.CARD:hover img {
+    border: 2px solid black;
+    transition: 0.5s;
+}
+
+.CARD:hover a p {
+    color: black;
+    border: 2px solid black;
+    transition: 0.5s;
+}
+
+/*HOVER*/
+
+.CARD-TITLE {
     font-size: 25px;
     margin-top: 10px;
 }
 
-.CARD img{
+.CARD img {
     margin-top: 15px;
     margin-bottom: 15px;
     width: 128px;
@@ -217,39 +234,41 @@ html, body {
     border-radius: 25px;
 }
 
-.CARD .DESC{
+.CARD .DESC {
     margin-left: 10px;
     margin-right: 10px;
     font-size: 16px;
 }
 
-.CARD a p{
-    padding:5px;
+.CARD a p {
+    padding: 5px;
     border: 2px solid white;
     border-radius: 10px;
     width: fit-content;
     margin-left: auto;
     margin-right: auto;
     margin-top: 25px;
-    color: white;
+    color: #f0f0f0;
 }
 
-.CARD a{
+.CARD a {
     text-decoration: none;
 }
 
-.CARD a p:hover{
+.CARD a p:hover {
     cursor: pointer;
     transform: scale(1.05);
+    transition: 0.2s;
 }
 
 /**/
-.FOOTER{
+
+.FOOTER {
     height: 50px;
     margin-bottom: 35px;
 }
 
-.FOOTER p{
+.FOOTER p {
     text-align: center;
     position: relative;
     top: 50%;
@@ -257,39 +276,34 @@ html, body {
     transform: translate(-50%, -50%);
 }
 
-.ARCTIC-AND-GITHUB{
+.ARCTIC-AND-GITHUB {
     position: relative;
     top: 20px;
+    border-radius: 25px;
+    padding: 2.5px;
     width: fit-content;
     margin-left: auto;
     margin-right: auto;
+    filter: contrast(160%);
+    transform: scale(1.1);
 }
 
-.ARCTIC-AND-GITHUB:hover{
-    transform: scale(1.05);
-}
-
-.ARCTIC-AND-GITHUB img{
+.ARCTIC-AND-GITHUB img {
     width: 52px;
     height: 52px;
 }
 
-.border{
-    border: 1px solid white;
-    border-radius: 50%;
+.ARCTIC-AND-GITHUB a .ar{
+    transform: scale(0.85);
 }
 
-.SOCIAL{
-    margin-left: 2.5px;
-    margin-right: 2.5px;
-}
-
-.ARCTIC-AND-GITHUB img:hover{
+.SOCIAL:hover{
+    opacity: 0.5;
     cursor: pointer;
 }
 
 @media only screen and (max-width: 1300px) {
-    .GRID{
+    .GRID {
         width: fit-content;
         margin-left: auto;
         margin-right: auto;
@@ -298,8 +312,7 @@ html, body {
         grid-column-gap: 10px;
         grid-row-gap: 10px;
     }
-    
-    .GRID2{
+    .GRID2 {
         width: fit-content;
         margin-left: auto;
         margin-right: auto;
@@ -311,7 +324,7 @@ html, body {
 }
 
 @media only screen and (max-width: 650px) {
-    .GRID{
+    .GRID {
         width: fit-content;
         margin-left: auto;
         margin-right: auto;
@@ -320,8 +333,7 @@ html, body {
         grid-column-gap: 10px;
         grid-row-gap: 10px;
     }
-    
-    .GRID2{
+    .GRID2 {
         width: fit-content;
         margin-left: auto;
         margin-right: auto;
@@ -330,8 +342,7 @@ html, body {
         grid-column-gap: 10px;
         grid-row-gap: 10px;
     }
-
-    .MORE-ABOUT-ME .TEXT{
+    .MORE-ABOUT-ME .TEXT {
         margin-left: 10px;
         margin-right: 10px;
         font-size: 15px;

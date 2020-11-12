@@ -94,7 +94,6 @@ html, body {
 .MORE-ABOUT-ME-BUTTON:hover {
     opacity: 0.5;
     transform: scale(1.05);
-    filter: invert(100%);
     transition: 0.2s;
     cursor: pointer;
 }
@@ -208,7 +207,7 @@ html, body {
 }
 
 .CARD:hover img {
-    border: 2px solid black;
+    border: 2px solid #f0f0f0;
     transition: 0.5s;
 }
 
@@ -347,4 +346,9 @@ html, body {
         margin-right: 10px;
         font-size: 15px;
     }
+}
+
+.CopyRight{
+    margin-top: 5px;
+    margin-bottom: 15px;
 }

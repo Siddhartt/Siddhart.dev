@@ -9,32 +9,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 function UpdateAge() {
-    const output = document.getElementById("YMOUTPUT")
+    const outputElement = document.getElementById("YMOUTPUT")
 
-    const Dag = document.getElementById("DAG").value
-    const Maand = document.getElementById("MAAND").value
-    const Jaar = document.getElementById("JAAR").value
+    const DagInput = document.getElementById("DAG").value
+    const MaandInput = document.getElementById("MAAND").value
+    const JaarInput = document.getElementById("JAAR").value
 
-    if(!(Dag && Maand && Jaar)){
-        output.innerHTML = `<p style="color:red">Please enter a valid date</p>`
-        return;
+    const Day = new Date()
+
+    const ThisYear = Day.getFullYear();
+    const ThisMonth = Day.getMonth() + 1;
+    const ThisDay = Day.getDate()
+        
+
+    if ( (DagInput == ThisDay && MaandInput == ThisMonth && JaarInput == ThisYear) || !((DagInput >= 1 && DagInput <= 31) && (MaandInput >= 1 && MaandInput <= 12) && (JaarInput >= 1900 && JaarInput < ThisYear)) ) {
+        outputElement.innerHTML = `<p style="color:red">Please enter a valid date</p>`
+        return
     }
-    else if(!((Dag > 0 && Dag <= 31 && !(Dag.startsWith(0))) && (Maand > 0 && Maand <= 12 && !(Maand.startsWith(0))) && (Jaar >= 1900 && Jaar <= (new Date().getFullYear())&& !(Jaar.startsWith(0))))){
-        output.innerHTML = `<p style="color:red">Please enter a valid date</p>`
-        return;
-    }else{
 
-        var yearOut = (new Date().getFullYear() - Jaar);
-        var monthOut = (new Date().getMonth() - Maand);
-
-        var TotalMonthOut = (yearOut * 12) + monthOut;
-
-        output.innerHTML = `<p id="JAAR"><b>${yearOut}</b> jaar en <b>${monthOut}</b> maanden.</p>
-        <p id="MAANDEN"><b>${TotalMonthOut}</b> Maanden</p>`
+    var yearOut = (ThisYear - JaarInput);
+    var monthOut = (ThisMonth - MaandInput);
+    
+    if((monthOut == -1) || (ThisDay <= DagInput)){
+        monthOut = 11;
+        yearOut -= 1;
     }
+    var totalmonthOut = (monthOut + (yearOut * 12));
+
+    if(monthOut == 1) {
+        outputElement.innerHTML = `<p id="JAAR"><b>${yearOut}</b> jaar en <b>${monthOut}</b> maand.</p>
+    <p id="MAANDEN"><b>${totalmonthOut}</b> Maanden</p>`
+    return
+    }
+    outputElement.innerHTML = `<p id="JAAR"><b>${yearOut}</b> jaar en <b>${monthOut}</b> maanden.</p>
+    <p id="MAANDEN"><b>${totalmonthOut}</b> Maanden</p>`
 }
-
-//TODO
-/**
- * TEST TEST TEST
- */

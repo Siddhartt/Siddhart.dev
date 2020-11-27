@@ -34,6 +34,52 @@
     border: 2px solid black;
 }
 
+.Celebrate{
+    color: greenyellow;
+    padding-bottom: 10px;
+}
+
 .OUTPUT{
     margin-top: 15px;
+}
+
+.GD{
+    margin-top: 50px;
+}
+
+.GD .GD-title{
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.GD .GD-input{
+    padding: 5px;
+    border-radius: 5px;
+    border: 2px solid black;
+}
+
+.Submit{
+    margin-top: 50px;
+}
+
+.Submit button{
+    font-size: 15px;
+    font-weight: bolder;
+    padding: 7.5px 15px 7.5px 15px;
+
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+.Submit button:hover{
+    cursor:pointer;
+    transform: scale(1.05);
+}
+
+.PushLog p{
+    margin-top: 10px;
+}
+
+.Submit button:focus{
+    outline: none;
 }

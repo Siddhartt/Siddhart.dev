@@ -105,7 +105,7 @@ function CheckDayOfBirth() {
     //Check if user is correct
     var UserInp = document.getElementById('GD').value
 
-    if(UserInp == (DayString.substring(0,2))){
+    if(UserInp.toLowerCase() == (DayString.substring(0,2).toLowerCase())){
         document.getElementById('PUSHLOG').innerHTML = `<p style="color:green">Klopt</p>`
     }else{
         document.getElementById('PUSHLOG').innerHTML = `<p style="color:red">Klopt Niet</p>`

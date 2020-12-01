@@ -28,10 +28,23 @@ function UpdateAge() {
     var TotalMonths = (((curD.getFullYear() * 12) + (curD.getMonth() + 1)) - ((year * 12) + month));
     var dayDif = (curD.getDate() - day)
 
+    console.log(dayDif)
 
-    if (dayDif > 0) {
-        TotalMonths -= 1
+    // if (dayDif > 0) {
+    //     TotalMonths -= 1
+    // }
+
+    if(day < curD.getDate()){
+        TotalMonths--;
     }
+
+    if(day > curD.getDate()){
+        TotalMonths++;
+    }
+
+    console.log(TotalMonths)
+
+
 
     var Years = Math.floor(TotalMonths / 12)
     var Months = Math.floor(TotalMonths % 12)

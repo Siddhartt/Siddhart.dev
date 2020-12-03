@@ -71,7 +71,7 @@
     border-radius: 5px;
 }
 
-.Submit button:hover{
+.SUB button:hover{
     cursor:pointer;
     transform: scale(1.05);
 }
@@ -80,6 +80,45 @@
     margin-top: 10px;
 }
 
-.Submit button:focus{
+.SUB button:focus{
     outline: none;
+}
+
+.MP{
+    display: block;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+
+    margin-top: 15px
+}
+
+.MPTITLE{
+    font-size: 25px;
+    margin-bottom:10px;
+}
+
+.MP .MPHR{
+    width: 50px;
+    margin-left: 17px;
+}
+
+.MP input{
+    margin-top: 5px;
+    width: 50px;
+    text-align: right;
+    display: block;
+    float: right;
+    margin-right: 12px;
+    margin-bottom: 10px;
+}
+
+.MP .NUM{
+    text-align: right;
+    display: block;
+    margin-top: 2.5px;
+    margin-bottom: 5px;
+    right: 0px;
+    padding-bottom: 2.5px;
+    font-size: 16px;
 }

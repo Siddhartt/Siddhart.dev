@@ -102,7 +102,7 @@ function CheckDayOfBirth() {
     var curDay = new Date().getDay() - 1;
     
     //modulus 7 to get the days that are left
-    var DayDif = ((days % 7));
+    var DayDif = ((days % 7) - 1);
 
     //shift array till current daystring is in position 0
     for (var x = 0; x < DAYS.length; x++) {

@@ -36,7 +36,7 @@
 // console.log(TotalMonths)
 
 //CALC NAME OF DAY OF BIRTHDAY
-var date1 = new Date('6/19/2020');
+var date1 = new Date('7/15/2004');
 var date2 = new Date();
 var difference = (date2.getTime() - date1.getTime());
 var days = Math.round(difference/(1000 * 60 * 60 * 24));

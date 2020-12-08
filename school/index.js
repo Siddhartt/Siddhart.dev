@@ -1,18 +1,32 @@
 //GLOBAL VARS
 var Nums = [];
+var Access = false;
+
+var DevMode = false;
+
+//switch dev mode
+function SwitchDevMode(){
+    DevMode = !DevMode
+    document.getElementById('DevMode').innerText = `Dev mode: ${DevMode}`
+}
 
 document.addEventListener("DOMContentLoaded", () => {
 
+    //Call Function That will generate a random math problem
     genMathProblem();
-    //add eventlisteners for every age input.
+
+    //add eventlisteners for every age inputfield.
     const YDM_Input = document.getElementsByClassName("AGE")
     for (var x = 0; x < YDM_Input.length; x++) {
         YDM_Input[x].addEventListener('input', UpdateAge);
         YDM_Input[x].addEventListener('propertychange', UpdateAge);
     }
 
-    //make "Doorgaan" button interactible when all inputfields are valid
+    //get all inputfields
     const inputs = document.getElementsByTagName('input');
+
+    //assign eventlistener for every inputfield
+    //make "Doorgaan" button interactible when all inputfields are valid
     for (var i = 0; i < inputs.length; i++) {
         inputs[i].addEventListener('input', CheckValid);
         inputs[i].addEventListener('propertychange', CheckValid);
@@ -20,10 +34,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     //disable button on DOM loaded
     document.getElementById('SUBMIT').disabled = true
+    document.getElementById('SUBMIT').style.marginTop = "25px"
 })
 
 
-//This is the function that will update the age text
+//This is the function that will update the age-output text
 function UpdateAge() {
 
     //define the output html div
@@ -43,13 +58,13 @@ function UpdateAge() {
         outputElement.innerHTML = `<p style="color:red;">Please enter a valid date!</p>`
         return;
     }
-    
+
     //Add total months
     TotalMonths += ((curD.getFullYear() - year) * 12);
     TotalMonths += ((curD.getMonth() + 1) - month);
-    
+
     //correction
-    if(curD.getDate() < day){
+    if (curD.getDate() < day) {
         TotalMonths--;
     }
 
@@ -100,9 +115,9 @@ function CheckDayOfBirth() {
     var days = Math.round(difference / (1000 * 3600 * 24));
     var DAYS = ["maandag", "dinsdag", "woensdag", "donderdag", "vrijdag", "zaterdag", "zondag"];
     var curDay = new Date().getDay() - 1;
-    
+
     //modulus 7 to get the days that are left
-    var DayDif = ((days % 7) - 1);
+    var DayDif = ((days % 7));
 
     //shift array till current daystring is in position 0
     for (var x = 0; x < DAYS.length; x++) {
@@ -129,30 +144,32 @@ function CheckDayOfBirth() {
     var UserInp = document.getElementById('GD').value;
 
     //return output
-    if(UserInp.toLowerCase() == (DayString.substring(0,2).toLowerCase())){
+    if (UserInp.toLowerCase() == (DayString.substring(0, 2).toLowerCase())) {
         document.getElementById('PUSHLOG').innerHTML = `<p style="color:green">Klopt</p>`;
-    }else{
+        Access = true
+    } else {
         document.getElementById('PUSHLOG').innerHTML = `<p style="color:red">Klopt Niet</p>`;
+        Access = false
     }
 }
 
-function genMathProblem(){
+function genMathProblem() {
 
-    for(var x = 0; x < 3; x++){
+    for (var x = 0; x < 3; x++) {
         var randNum = Math.floor(Math.random() * 89) + 10;
         Nums.push(randNum)
 
         //corrections to make the ui look good
-        switch(x){
-            case(1):
+        switch (x) {
+            case (1):
                 randNum += " x";
                 break;
 
-            case(2):
+            case (2):
                 randNum += " +";
                 break;
 
-            case(0):
+            case (0):
                 document.getElementById(x).style.marginRight = "12px";
                 break;
         }
@@ -160,41 +177,86 @@ function genMathProblem(){
     }
 }
 
-function CheckMathAnswers(){
+function CheckMathAnswers() {
 
     var FirstInp = document.getElementById('KEER')
     var SecInp = document.getElementById('PLUS')
     //calculate answers
     var keer = (Nums[0] * Nums[1])
     var som = (keer + Nums[2])
-    FirstInp.value = keer
-    SecInp.value = som
+
+    //check if the giver value is equal to the answer or is equal to answer -+ (answer * 0.1%)
+    if (FirstInp.value == keer || (FirstInp.value > (keer - (keer * 0.1)) && FirstInp.value < (keer + (keer * 0.1)))) {
+        if (SecInp.value == som || (SecInp.value > (som - (som * 0.1)) && SecInp.value < (som + (som * 0.1)))) {
+            document.getElementById('PUSHMATHLOG').innerHTML = `<p style="color:green">Klopt</p>`;
+            Access = true
+            return
+        }
+    }
+
+    document.getElementById('PUSHMATHLOG').innerHTML = `<p style="color:red">Klopt Niet</p>`;
+    Access = false
 }
 
-function CheckValid(){
+function CheckValid() {
 
+    //Call MaxInput function
+    MaxInput()
     //get all input objects
     const inputs = document.getElementsByTagName('input');
     var Enable = true;
     for (var i = 0; i < inputs.length; i++) {
-        if (!inputs[i].value){
+        if (!inputs[i].value) {
             Enable = false
         }
     }
 
     //enable or disable button on state
-    if(Enable){
+    if (Enable) {
         document.getElementById('SubmitDiv').className = 'Submit SUB'
         document.getElementById('SUBMIT').disabled = false
-    }else{
+    } else {
         document.getElementById('SubmitDiv').className = 'Submit'
         document.getElementById('SUBMIT').disabled = true
     }
 }
 
+function MaxInput() {
+
+    //get all inputs and check if they are not over their limit
+    const inputs = document.getElementsByTagName('input');
+    for (var i = 0; i < inputs.length; i++) {
+        var InputObject = inputs[i]
+        if (InputObject.maxLength) {
+            if (InputObject.value.length > InputObject.maxLength) {
+                InputObject.value = InputObject.value.slice(0, InputObject.maxLength)
+            }
+        }
+    }
+}
+
+
 function Submit() {
-    
     //Check if all the inputs are valid
     CheckDayOfBirth();
     CheckMathAnswers();
+
+    //find the main content div
+    var MainDiv = document.getElementById('content')
+
+    if (!DevMode) {
+        if (Access) {
+            MainDiv.innerHTML = `
+        <div class="school">
+            <div style="color:green" class="CenterT">WELKOM</div>
+            </div>
+        </div>`
+        } else {
+            MainDiv.innerHTML = `
+        <div class="school">
+            <div style="color:red" class="CenterT">GEEN TOEGANG</div>
+            </div>
+        </div>`
+        }
+    }
 }

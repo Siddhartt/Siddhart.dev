@@ -59,7 +59,7 @@
 }
 
 .Submit{
-    margin-top: 50px;
+    margin-top: 0px;
 }
 
 .Submit button{
@@ -89,13 +89,12 @@
     width: fit-content;
     margin-left: auto;
     margin-right: auto;
-
-    margin-top: 15px
 }
 
 .MPTITLE{
     font-size: 25px;
-    margin-bottom:10px;
+    margin-top:20px;
+    margin-bottom:15px;
 }
 
 .MP .MPHR{
@@ -121,4 +120,19 @@
     right: 0px;
     padding-bottom: 2.5px;
     font-size: 16px;
+}
+
+.PushMathLog{
+    margin-top: 35px;
+}
+
+.CenterT{
+    position: absolute;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    font-size: 55px;
+    font-weight: bolder;
 }

@@ -28,17 +28,16 @@
 </head>
 
 <body>
-    <div class="content">
+    <div id="content" class="content">
         <div class="school">
             <div class="TITLE">Toelating Studie</div>
             
             <div class="FORM">
                 <div class="LEEFTIJD">
                     <p class="TITLE">Leeftijd</p>
-                    <input id="DAG" class="DAG AGE" placeholder="Dag" type="number" min="1" max="31"/>
-                    <input id="MAAND" class="Maand AGE" placeholder="Maand" type="number" min="1" max="12"/>
-                    <input id="JAAR" class="Jaar AGE" placeholder="Jaar" type="number" min="1900" max="2020"/>
-
+                    <input id="DAG" class="DAG AGE" placeholder="Dag" type="number" min="1" max="31" maxlength="2"/>
+                    <input id="MAAND" class="Maand AGE" placeholder="Maand" type="number" min="1" max="12" maxlength="2"/>
+                    <input id="JAAR" class="Jaar AGE" placeholder="Jaar" type="number" min="1900" max="2020" maxlength="4"/>
                     <div id="YMOUTPUT" class="OUTPUT">
                     </div>
                 </div>
@@ -55,12 +54,18 @@
                     <p class="MPTITLE">Los op</p>
                     <p id="0" class="NUM"></p>
                     <p id="1" class="NUM"></p>
+
                     <hr class="MPHR">
-                    <input id="KEER" type="number"/>
+                    <input id="KEER" type="number" maxlength="10000"/>
                     <br>
+                    <br>
+
                     <p id="2" class="NUM"></p>
+
                     <hr class="MPHR">
-                    <input id="PLUS" type="number"/>
+                    <input id="PLUS" type="number" maxlength="10000"/>
+
+                    <div class="PushMathLog" id="PUSHMATHLOG"></div>
                 </div>
 
                 <div id="SubmitDiv" class="Submit">
@@ -68,6 +73,10 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="DevMode">
+        <button id="DevMode" onclick="SwitchDevMode()">Dev mode: false</button>
     </div>
 </body>
 

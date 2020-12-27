@@ -114,17 +114,15 @@ function CheckDayOfBirth() {
     //calculate total days between given date and current date
     var days = Math.round(difference / (1000 * 3600 * 24));
     var DAYS = ["maandag", "dinsdag", "woensdag", "donderdag", "vrijdag", "zaterdag", "zondag"];
-    var curDay = new Date().getDay() - 1;
+    var curDay = date2.getDay()
 
     //modulus 7 to get the days that are left
     var DayDif = ((days % 7));
 
     //shift array till current daystring is in position 0
-    for (var x = 0; x < DAYS.length; x++) {
-        if (DAYS[x] == DAYS[curDay]) {
-            for (var i = 0; i < x; i++) {
-                DAYS.push(DAYS.shift());
-            }
+    for (var x = 0; x < (curDay - 1); x++) {
+        if(DAYS[x] != DAYS[curDay]){
+            DAYS.push(DAYS.shift())
         }
     }
     //Get the dateString

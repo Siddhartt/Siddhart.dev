@@ -1,4 +1,4 @@
-var date1 = new Date('12/22/2020'); // month day year
+var date1 = new Date('7/15/2004'); // month day year
 var date2 = new Date();
 var difference = (date2.getTime() - date1.getTime());
 var days = Math.ceil(difference / (1000 * 3600 * 24)) - 1;
@@ -16,4 +16,4 @@ for(var i = 0; i < DayDif; i++){
     DayOfTheWeek.unshift(DayOfTheWeek.pop())
 }
 
-console.log(DAYS[DayOfTheWeek[0] - 1])
+console.log(DAYS[DayOfTheWeek[0]])

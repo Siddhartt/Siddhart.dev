@@ -2,17 +2,47 @@
 var Nums = [];
 var Access = false;
 
+//Als dit aan staat wordt je niet gelijk naar een andere pagina gestuurd | Scroll naar beneden op pagina om aan te zetten.
 var DevMode = false;
 
 //switch dev mode
-function SwitchDevMode(){
+function SwitchDevMode() {
     DevMode = !DevMode
     document.getElementById('DevMode').innerText = `Dev mode: ${DevMode}`
 }
 
+function genMathProblem() {
+    for (var x = 0; x < 3; x++) {
+        //generate a random number between 10 and 99
+        var randNum = Math.floor(Math.random() * 89) + 10;
+
+        //save the numbers in an [] so we can use it later to check the users answer
+        Nums.push(randNum)
+
+        //corrections to make the ui look good
+        switch (x) {
+            //the second number should always have a 'x' next to it
+            case (1):
+                randNum += " x";
+                break;
+            //the third number should always have a 'x' next to it
+            case (2):
+                randNum += " +";
+                break;
+            //move the first number a bit to the left
+            case (0):
+                document.getElementById(x).style.marginRight = "12px";
+                break;
+        }
+        //assign the random number to the element
+        document.getElementById(x).innerHTML = randNum;
+    }
+}
+
+//eventlistener die code uitvoert als de pagina geladen is
 document.addEventListener("DOMContentLoaded", () => {
 
-    //Call Function That will generate a random math problem
+    //call Function That will generate a random math problem
     genMathProblem();
 
     //add eventlisteners for every age inputfield.
@@ -73,17 +103,17 @@ function UpdateAge() {
     var Months = Math.floor(TotalMonths % 12);
 
     //if statements to check if user is jaarig, maandig or none
-    if ((curD.getDate() == day) && ((curD.getMonth() + 1) == month)) {
+    if ((curD.getDate() == day) && ((curD.getMonth() + 1) == month)) {//user is jarig
         outputElement.innerHTML = `
         <p class="Celebrate">🎉 Gefeliciteerd! 🎉</p>
         <p id="JAAR"><b>${Years}</b> jaar en <b>${Months}</b> maanden.</p>
         <p id="MAANDEN"><b>${TotalMonths}</b> Maanden</p>`
-    } else if ((curD.getMonth() + 1) == month) {
+    } else if ((curD.getMonth() + 1) == month) {//user is maandig
         outputElement.innerHTML = `
         <p class="Celebrate">🎉 Gefeliciteerd Maandige! 🎉</p>
         <p id="JAAR"><b>${Years}</b> jaar en <b>${Months}</b> maanden.</p>
         <p id="MAANDEN"><b>${TotalMonths}</b> Maanden</p>`
-    } else {
+    } else {//user is none
         outputElement.innerHTML = `
         <p id="JAAR"><b>${Years}</b> jaar en <b>${Months}</b> maanden.</p>
         <p id="MAANDEN"><b>${TotalMonths}</b> Maanden</p>`
@@ -92,11 +122,11 @@ function UpdateAge() {
 
 //this is the function to calculate the string of the user birthday
 function CheckDayOfBirth() {
-
-    //declare vars
+    //convert given string input to an int and assign to the correct value
     var DayInp = Number(document.getElementById("DAG").value);
     var MonthInp = Number(document.getElementById("MAAND").value);
     var YearInp = Number(document.getElementById("JAAR").value);
+    //declare the current day
     var curD = new Date();
 
     //check if input is valid
@@ -109,38 +139,31 @@ function CheckDayOfBirth() {
     var DateString = `${MonthInp}/${DayInp}/${YearInp}`;
     var date1 = new Date(DateString);
     var date2 = new Date();
-    var difference = date2.getTime() - date1.getTime();
+    var difference = (date2.getTime() - date1.getTime()); //verschil in seconden uitrekenen
+    var days = Math.ceil(difference / (1000 * 3600 * 24)) - 1; //berken verschil in dagen door difference te delen door aantal seconden van een dag
+    var DAYS = ["maandag", "dinsdag", "woensdag", "donderdag", "vrijdag", "zaterdag", "zondag"]//names of the weekday's in an array
+    var DayOfTheWeek = [1, 2, 3, 4, 5, 6, 7]//numbers of the day in an array
+    var DayDif = (days % 7)//modulus 7 om het rest aantal dagen te bereken
 
-    //calculate total days between given date and current date
-    var days = Math.round(difference / (1000 * 3600 * 24));
-    var DAYS = ["maandag", "dinsdag", "woensdag", "donderdag", "vrijdag", "zaterdag", "zondag"];
-    var curDay = date2.getDay()
-
-    //modulus 7 to get the days that are left
-    var DayDif = ((days % 7));
-
-    //shift array till current daystring is in position 0
-    for (var x = 0; x < (curDay - 1); x++) {
-        if(DAYS[x] != DAYS[curDay]){
-            DAYS.push(DAYS.shift())
+    //move the current day of the week number to the first position in the array (position 0)
+    for (var x = 0; x < DayOfTheWeek.length; x++) {
+        //move the first number of the array untill its equal to the current day of the week number. 
+        if ((date2.getDay()) != DayOfTheWeek[0]) {
+            DayOfTheWeek.push(DayOfTheWeek.shift())
         }
     }
-    //Get the dateString
 
-    if (DayDif < 0) {
-        var a = DayDif * -1
-        DayString = (DAYS[a]);
-    } else if (DayDif == 0) {
-        DayString = (DAYS[0]);
+    //move the first number faydif times to the left. The first number in the array should now be equal to the day of the week number of the given day
+    for (var i = 0; i < DayDif; i++) {
+        DayOfTheWeek.unshift(DayOfTheWeek.pop())
     }
-    else {
-        var a = DayDif
-        DayString = (DAYS[DAYS.length - a]);
-    }
+
+    //we now assign the name of the week day to an variable. we use -1 because the biggest number in the array == 7.
+    //If the number on the first position would be equal to 7 we would get undefined.
+    DayString = DAYS[DayOfTheWeek[0] - 1]
 
     //check if the user input was correct and return "klopt" if true and "klopt niet" if false
     var UserInp = document.getElementById('GD').value;
-
     //return output
     if (UserInp.toLowerCase() == (DayString.substring(0, 2).toLowerCase())) {
         document.getElementById('PUSHLOG').innerHTML = `<p style="color:green">Klopt</p>`;
@@ -151,39 +174,17 @@ function CheckDayOfBirth() {
     }
 }
 
-function genMathProblem() {
-
-    for (var x = 0; x < 3; x++) {
-        var randNum = Math.floor(Math.random() * 89) + 10;
-        Nums.push(randNum)
-
-        //corrections to make the ui look good
-        switch (x) {
-            case (1):
-                randNum += " x";
-                break;
-
-            case (2):
-                randNum += " +";
-                break;
-
-            case (0):
-                document.getElementById(x).style.marginRight = "12px";
-                break;
-        }
-        document.getElementById(x).innerHTML = randNum;
-    }
-}
-
+//function to check if the given values are correct 
 function CheckMathAnswers() {
-
+    //assign the given inputs to variables
     var FirstInp = document.getElementById('KEER')
     var SecInp = document.getElementById('PLUS')
+
     //calculate answers
     var keer = (Nums[0] * Nums[1])
     var som = (keer + Nums[2])
 
-    //check if the giver value is equal to the answer or is equal to answer -+ (answer * 0.1%)
+    //check if the given value is equal to the answer or is equal to answer -+ (answer * 0.1%)
     if (FirstInp.value == keer || (FirstInp.value > (keer - (keer * 0.1)) && FirstInp.value < (keer + (keer * 0.1)))) {
         if (SecInp.value == som || (SecInp.value > (som - (som * 0.1)) && SecInp.value < (som + (som * 0.1)))) {
             document.getElementById('PUSHMATHLOG').innerHTML = `<p style="color:green">Klopt</p>`;

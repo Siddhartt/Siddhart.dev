@@ -1,26 +1,19 @@
-var date1 = new Date('7/15/2004');
+var date1 = new Date('12/22/2020'); // month day year
 var date2 = new Date();
 var difference = (date2.getTime() - date1.getTime());
-var days = Math.round(difference / (1000 * 60 * 60 * 24));
+var days = Math.ceil(difference / (1000 * 3600 * 24)) - 1;
 var DAYS = ["maandag", "dinsdag", "woensdag", "donderdag", "vrijdag", "zaterdag", "zondag"]
-var curDay = date2.getDay()
-var DayDif = ((days % 7))
+var DayOfTheWeek = [1, 2, 3, 4, 5, 6, 7]
+var DayDif = (days % 7)
 
-for (var x = 0; x < (curDay - 1); x++) {
-    if(DAYS[x] != DAYS[curDay]){
-        DAYS.push(DAYS.shift())
+for(var x = 0 ;x < DayOfTheWeek.length;x++){
+    if((date2.getDay()) != DayOfTheWeek[0]){
+        DayOfTheWeek.push(DayOfTheWeek.shift())
     }
 }
 
-if (DayDif < 0) {
-    var a = DayDif * -1
-    DayString = (DAYS[a]);
-} else if (DayDif == 0) {
-    DayString = (DAYS[0]);
-}
-else {
-    var a = DayDif
-    DayString = (DAYS[DAYS.length - a]);
+for(var i = 0; i < DayDif; i++){
+    DayOfTheWeek.unshift(DayOfTheWeek.pop())
 }
 
-console.log(DayString)
+console.log(DAYS[DayOfTheWeek[0] - 1])

@@ -160,7 +160,8 @@ function CheckDayOfBirth() {
 
     //we now assign the name of the week day to an variable. we use -1 because the biggest number in the array == 7.
     //If the number on the first position would be equal to 7 we would get undefined.
-    DayString = DAYS[DayOfTheWeek[0] - 1]
+    DayString = DAYS[DayOfTheWeek[0]]
+    console.log(DAYS[DayOfTheWeek[0]])
 
     //check if the user input was correct and return "klopt" if true and "klopt niet" if false
     var UserInp = document.getElementById('GD').value;

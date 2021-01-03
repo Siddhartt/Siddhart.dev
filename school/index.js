@@ -123,45 +123,38 @@ function UpdateAge() {
 //this is the function to calculate the string of the user birthday
 function CheckDayOfBirth() {
     //convert given string input to an int and assign to the correct value
-    var DayInp = Number(document.getElementById("DAG").value);
-    var MonthInp = Number(document.getElementById("MAAND").value);
-    var YearInp = Number(document.getElementById("JAAR").value);
-    //declare the current day
-    var curD = new Date();
+    var day = Number(document.getElementById("DAG").value);
+    var month = Number(document.getElementById("MAAND").value);
+    var year = Number(document.getElementById("JAAR").value);
 
-    //check if input is valid
-    if (!((DayInp >= 1 && DayInp <= 31) && (MonthInp >= 1 && MonthInp <= 12) && (YearInp < curD.getFullYear() && YearInp >= 1900))) {
-        return;
+    //Get the first 2 numbers from the year input
+    var startYearNums = (year.toString().slice(0, 2))
+
+    //array with the yearCodes we need to use these in our calculation later
+    var YearCList = [6, 0, 2, 4]
+
+    //loop trough array untill the correct yearCode is in position 0
+    for (var x = 0; x < 20 - startYearNums; x++) {
+        YearCList.push(YearCList.shift())
     }
 
-    //vars for date format
-    var DayString = "";
-    var DateString = `${MonthInp}/${DayInp}/${YearInp}`;
-    var date1 = new Date(DateString);
-    var date2 = new Date();
-    var difference = (date2.getTime() - date1.getTime()); //verschil in seconden uitrekenen
-    var days = Math.ceil(difference / (1000 * 3600 * 24)) - 1; //berken verschil in dagen door difference te delen door aantal seconden van een dag
-    var DAYS = ["maandag", "dinsdag", "woensdag", "donderdag", "vrijdag", "zaterdag", "zondag"]//names of the weekday's in an array
-    var DayOfTheWeek = [1, 2, 3, 4, 5, 6, 7]//numbers of the day in an array
-    var DayDif = (days % 7)//modulus 7 om het rest aantal dagen te bereken
+    //define the YearC variable
+    var YearC = YearCList[0]
 
-    //move the current day of the week number to the first position in the array (position 0)
-    for (var x = 0; x < DayOfTheWeek.length; x++) {
-        //move the first number of the array untill its equal to the current day of the week number. 
-        if ((date2.getDay()) != DayOfTheWeek[0]) {
-            DayOfTheWeek.push(DayOfTheWeek.shift())
-        }
-    }
+    //array with the monthCodes we need to use these in our calculation later
+    var MonthCList = [1, 4, 4, 0, 2, 5, 0, 3, 6, 1, 4, 6]
+    //define the MonthCode variable
+    var MonthC = MonthCList[month - 1]
 
-    //move the first number faydif times to the left. The first number in the array should now be equal to the day of the week number of the given day
-    for (var i = 0; i < DayDif; i++) {
-        DayOfTheWeek.unshift(DayOfTheWeek.pop())
-    }
-
-    //we now assign the name of the week day to an variable. we use -1 because the biggest number in the array == 7.
-    //If the number on the first position would be equal to 7 we would get undefined.
-    DayString = DAYS[DayOfTheWeek[0]]
-    console.log(DAYS[DayOfTheWeek[0]])
+    /*calculate the DayOfTheWeek
+        calculation = (day + MonthCode + yearCode + last_2_numbers_from_year + (last_2_numbers_from_year / 4) % 7).
+        This will result in a number between 0 - 6
+    */
+    var DayOfTheWeek = (day + MonthC + YearC + Math.floor(Number(year.toString().slice(2))) + Math.floor(Math.floor(Number(year.toString().slice(2))) / 4)) % 7
+    //define the days of the week in an array
+    var Days = ["zaterdag", "zondag", "maandag", "dinsdag", "woensdag", "donderdag", "vrijdag"]
+    //define the day string of the given date
+    var DayString = Days[DayOfTheWeek]
 
     //check if the user input was correct and return "klopt" if true and "klopt niet" if false
     var UserInp = document.getElementById('GD').value;

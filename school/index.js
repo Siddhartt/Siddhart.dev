@@ -74,7 +74,7 @@ function UpdateAge() {
     //define the output html div
     const outputElement = document.getElementById("YMOUTPUT");
 
-    //declare main variables
+    //declare main variables and convert to Number
     var day = Number(document.getElementById("DAG").value);
     var month = Number(document.getElementById("MAAND").value);
     var year = Number(document.getElementById("JAAR").value);
@@ -131,15 +131,15 @@ function CheckDayOfBirth() {
     var startYearNums = (year.toString().slice(0, 2))
 
     //array with the yearCodes we need to use these in our calculation later
-    var YearCList = [6, 0, 2, 4]
-
-    //loop trough array untill the correct yearCode is in position 0
-    for (var x = 0; x < 20 - startYearNums; x++) {
-        YearCList.push(YearCList.shift())
+    var YearC;
+    switch (Number(startYearNums)){
+        case(20):
+            YearC = 6
+            break;
+        case(19):
+            YearC = 0
+            break;
     }
-
-    //define the YearC variable
-    var YearC = YearCList[0]
 
     //array with the monthCodes we need to use these in our calculation later
     var MonthCList = [1, 4, 4, 0, 2, 5, 0, 3, 6, 1, 4, 6]

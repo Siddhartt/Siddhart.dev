@@ -1,6 +1,7 @@
 //GLOBAL VARS
 var Nums = [];
 var Access = false;
+var BirthTrue = false;
 
 //Als dit aan staat wordt je niet gelijk naar een andere pagina gestuurd | Scroll naar beneden op pagina om aan te zetten.
 var DevMode = false;
@@ -132,11 +133,11 @@ function CheckDayOfBirth() {
 
     //array with the yearCodes we need to use these in our calculation later
     var YearC;
-    switch (Number(startYearNums)){
-        case(20):
+    switch (Number(startYearNums)) {
+        case (20):
             YearC = 6
             break;
-        case(19):
+        case (19):
             YearC = 0
             break;
     }
@@ -161,10 +162,10 @@ function CheckDayOfBirth() {
     //return output
     if (UserInp.toLowerCase() == (DayString.substring(0, 2).toLowerCase())) {
         document.getElementById('PUSHLOG').innerHTML = `<p style="color:green">Klopt</p>`;
-        Access = true
+        BirthTrue = true
     } else {
         document.getElementById('PUSHLOG').innerHTML = `<p style="color:red">Klopt Niet</p>`;
-        Access = false
+        BirthTrue = false
     }
 }
 
@@ -182,13 +183,13 @@ function CheckMathAnswers() {
     if (FirstInp.value == keer || (FirstInp.value > (keer - (keer * 0.1)) && FirstInp.value < (keer + (keer * 0.1)))) {
         if (SecInp.value == som || (SecInp.value > (som - (som * 0.1)) && SecInp.value < (som + (som * 0.1)))) {
             document.getElementById('PUSHMATHLOG').innerHTML = `<p style="color:green">Klopt</p>`;
-            Access = true
+            MathTrue = true
             return
         }
     }
 
     document.getElementById('PUSHMATHLOG').innerHTML = `<p style="color:red">Klopt Niet</p>`;
-    Access = false
+    MathTrue = false
 }
 
 function CheckValid() {
@@ -234,6 +235,10 @@ function Submit() {
     CheckDayOfBirth();
     CheckMathAnswers();
 
+    if (BirthTrue == true && MathTrue == true) {
+        Access = true
+    }
+
     //find the main content div
     var MainDiv = document.getElementById('content')
 
@@ -241,14 +246,18 @@ function Submit() {
         if (Access) {
             MainDiv.innerHTML = `
         <div class="school">
-            <div style="color:green" class="CenterT">WELKOM</div>
+            <div class="CenterT GREEN">
+            <p>WELKOM</p>
+            <a href="/school"><button class="EndB">Terug</button></a>
             </div>
         </div>`
         } else {
             MainDiv.innerHTML = `
         <div class="school">
-            <div style="color:red" class="CenterT">GEEN TOEGANG</div>
-            </div>
+            <div class="CenterT RED">
+            <p>GEEN TOEGANG</p>
+            <a href="/school"><button class="EndB" >Terug</button></a>
+            </div>       
         </div>`
         }
     }

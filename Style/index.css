@@ -10,8 +10,10 @@ html, body {
     overflow-x: hidden;
     color: #f0f0f0;
     font-family: 'Montserrat', sans-serif;
-    background-color: rgb(9, 9, 22);
-    background-image: url("https://siddhart.dev/Storage/Background.png");
+    background-color: rgb(59, 59, 59);
+    /* background-image: url("https://siddhart.dev/Storage/Background.png"); */
+    background: rgb(27,41,54);
+background: radial-gradient(circle, rgba(27,41,54,1) 0%, rgba(12,18,24,1) 100%);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -200,6 +202,7 @@ html, body {
     -khtml-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
+    transition: 0.5s;
 }
 
 /*HOVER*/
@@ -210,6 +213,7 @@ html, body {
     background-color: #f0f0f0;
     color: black;
     transition: 0.5s;
+    transform: translateY(-5px);
 }
 
 .CARD:hover img {
@@ -270,7 +274,9 @@ html, body {
 
 .FOOTER {
     height: 50px;
-    margin-bottom: 35px;
+    padding-top: 5px;
+    padding-bottom: 45px;
+    background-color: rgba(0, 0, 0, 0.76);
 }
 
 .FOOTER p {
@@ -303,6 +309,16 @@ html, body {
 }
 
 .SOCIAL:hover{
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.FIRST:hover{
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.SECOND:hover{
     opacity: 0.5;
     cursor: pointer;
 }

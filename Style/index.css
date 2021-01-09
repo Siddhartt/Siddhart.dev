@@ -18,6 +18,7 @@ background: radial-gradient(circle, rgba(27,41,54,1) 0%, rgba(12,18,24,1) 100%);
     background-repeat: no-repeat;
     background-size: cover;
     scroll-behavior: smooth;
+    min-height: 100vh;
 }
 
 .hr {

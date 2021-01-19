@@ -12,6 +12,7 @@ Project Github Repo: https://github.com/Siddhartt/Siddhart.dev
 var Nums = [];
 var BirthTrue = false;
 var MathTrue = false
+var Access = false;
 
 //Als dit aan staat wordt je niet gelijk naar een andere pagina gestuurd | Scroll naar beneden op pagina om aan te zetten.
 var DevMode = false;
@@ -249,9 +250,13 @@ function Submit() {
 
     //find the main content div
     var MainDiv = document.getElementById('content')
+    
+    if(BirthTrue == true && MathTrue == true){
+        Access = true
+    }
 
     if (!DevMode) {
-        if (BirthTrue == true && MathTrue == true) {
+        if(Access){
             MainDiv.innerHTML = `
         <div class="school">
             <div class="CenterT GREEN">

@@ -5,12 +5,13 @@ Docent: S.A. Ghiraw
 
 Main: https://siddhart.dev/
 Project: https://siddhart.dev/school
+Project Github Repo: https://github.com/Siddhartt/Siddhart.dev
 */
 
 //GLOBAL VARS
 var Nums = [];
-var Access = false;
 var BirthTrue = false;
+var MathTrue = false
 
 //Als dit aan staat wordt je niet gelijk naar een andere pagina gestuurd | Scroll naar beneden op pagina om aan te zetten.
 var DevMode = false;
@@ -21,12 +22,13 @@ function SwitchDevMode() {
     document.getElementById('DevMode').innerText = `Dev mode: ${DevMode}`
 }
 
+//Generate the Math Problem
 function genMathProblem() {
     for (var x = 0; x < 3; x++) {
         //generate a random number between 10 and 99
         var randNum = Math.floor(Math.random() * 89) + 10;
 
-        //save the numbers in an [] so we can use it later to check the users answer
+        //save the numbers in an array so we can use it later to check the answers given by the user
         Nums.push(randNum)
 
         //corrections to make the ui look good
@@ -49,10 +51,10 @@ function genMathProblem() {
     }
 }
 
-//eventlistener die code uitvoert als de pagina geladen is
+//eventListenen that will run the code if the content of the page is loaded
 document.addEventListener("DOMContentLoaded", () => {
 
-    //call Function That will generate a random math problem
+    //call Function that will generate the random math problem
     genMathProblem();
 
     //add eventlisteners for every age inputfield.
@@ -62,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
         YDM_Input[x].addEventListener('propertychange', UpdateAge);
     }
 
-    //get all inputfields
+    //get all inputfields objects
     const inputs = document.getElementsByTagName('input');
 
     //assign eventlistener for every inputfield
@@ -72,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
         inputs[i].addEventListener('propertychange', CheckValid);
     }
 
-    //disable button on DOM loaded
+    //disable button when page is loaded
     document.getElementById('SUBMIT').disabled = true
     document.getElementById('SUBMIT').style.marginTop = "25px"
 })
@@ -84,12 +86,12 @@ function UpdateAge() {
     //define the output html div
     const outputElement = document.getElementById("YMOUTPUT");
 
-    //declare main variables and convert to Number
+    //Get the inputfield fron the html file and convert the strings to an Number so we can use it in the calculations
     var day = Number(document.getElementById("DAG").value);
     var month = Number(document.getElementById("MAAND").value);
     var year = Number(document.getElementById("JAAR").value);
 
-    //get today
+    //Get data of the current date
     var curD = new Date();
     var TotalMonths = 0;
 
@@ -99,11 +101,12 @@ function UpdateAge() {
         return;
     }
 
-    //Add total months
-    TotalMonths += ((curD.getFullYear() - year) * 12);
-    TotalMonths += ((curD.getMonth() + 1) - month);
+    //Add result of calculations to the totalMonths var
+    TotalMonths += ((curD.getFullYear() - year) * 12);//every year is + 12 years
+    TotalMonths += ((curD.getMonth() + 1) - month);//add the differnece in months
 
-    //correction
+    //If the current day is less than the day input that means that the month was not finished. 
+    //If the condition is true we remove one month from the totalMonths
     if (curD.getDate() < day) {
         TotalMonths--;
     }
@@ -203,7 +206,7 @@ function CheckMathAnswers() {
 
 function CheckValid() {
 
-    //Call MaxInput function
+    //Call MaxInput function to check if the input is not over its limit
     MaxInput()
     //get all input objects
     const inputs = document.getElementsByTagName('input');
@@ -244,15 +247,11 @@ function Submit() {
     CheckDayOfBirth();
     CheckMathAnswers();
 
-    if (BirthTrue == true && MathTrue == true) {
-        Access = true
-    }
-
     //find the main content div
     var MainDiv = document.getElementById('content')
 
     if (!DevMode) {
-        if (Access) {
+        if (BirthTrue == true && MathTrue == true) {
             MainDiv.innerHTML = `
         <div class="school">
             <div class="CenterT GREEN">

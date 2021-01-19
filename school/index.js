@@ -6,6 +6,7 @@ Docent: S.A. Ghiraw
 Main: https://siddhart.dev/
 Project: https://siddhart.dev/school
 */
+
 //GLOBAL VARS
 var Nums = [];
 var Access = false;

@@ -10,16 +10,18 @@ html, body {
     overflow-x: hidden;
     color: #f0f0f0;
     font-family: 'Montserrat', sans-serif;
-    background-color: rgb(59, 59, 59);
+    background-color: rgb(0, 0, 0);
     /* background-image: url("https://siddhart.dev/Storage/Background.png"); */
-    background: rgb(27,41,54);
-background: radial-gradient(circle, rgba(27,41,54,1) 0%, rgba(12,18,24,1) 100%);
-    background-position: center;
+    background: #747373;
+    /* background: linear-gradient(to right top, #051937, #004a6f, #007f87, #00b276, #b2dc51); */
+    background-image: url("http://127.0.0.1:8009/Storage/background.webp");
+    background-position: left;
     background-repeat: no-repeat;
     background-size: cover;
     scroll-behavior: smooth;
     min-height: 100vh;
 }
+
 
 .hr {
     margin-top: 75px;
@@ -55,6 +57,7 @@ background: radial-gradient(circle, rgba(27,41,54,1) 0%, rgba(12,18,24,1) 100%);
     position: relative;
     text-align: center;
     font-size: 60px;
+    text-shadow: 2px 2px 5px #949494;
 }
 
 .I-AM-A {
@@ -62,6 +65,7 @@ background: radial-gradient(circle, rgba(27,41,54,1) 0%, rgba(12,18,24,1) 100%);
     position: relative;
     text-align: center;
     font-size: 20px;
+    text-shadow: 2px 2px 5px #949494;
 }
 
 .typewrite>.wrap {
@@ -77,6 +81,7 @@ background: radial-gradient(circle, rgba(27,41,54,1) 0%, rgba(12,18,24,1) 100%);
 
 .MORE-ABOUT-ME-BUTTON a {
     text-decoration: none;
+        text-shadow: 2px 2px 5px #949494;
 }
 
 .MORE-ABOUT-ME-BUTTON svg {
@@ -102,6 +107,7 @@ background: radial-gradient(circle, rgba(27,41,54,1) 0%, rgba(12,18,24,1) 100%);
 }
 
 .MORE-ABOUT-ME .TITLE {
+    text-shadow: 2px 2px 5px #949494;
     text-align: center;
     margin-top: -20px;
     font-size: 40px;
@@ -280,12 +286,14 @@ background: radial-gradient(circle, rgba(27,41,54,1) 0%, rgba(12,18,24,1) 100%);
     background-color: rgba(0, 0, 0, 0.76);
 }
 
+.FooterP{
+    margin-top: 15px;
+}
 .FOOTER p {
     text-align: center;
     position: relative;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    margin-top: 2.5px;
+    margin-bottom: 2.5px;
 }
 
 .ARCTIC-AND-GITHUB {

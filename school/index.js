@@ -13,6 +13,8 @@ var Nums = [];
 var BirthTrue = false;
 var MathTrue = false
 var Access = false;
+var Age = 0;
+var Valid = false;
 
 //Als dit aan staat wordt je niet gelijk naar een andere pagina gestuurd | Scroll naar beneden op pagina om aan te zetten.
 var DevMode = false;
@@ -21,6 +23,15 @@ var DevMode = false;
 function SwitchDevMode() {
     DevMode = !DevMode
     document.getElementById('DevMode').innerText = `Dev mode: ${DevMode}`
+}
+
+//shuffle the given array
+function shuffle(a) {
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
 }
 
 //Generate the Math Problem
@@ -102,6 +113,9 @@ function UpdateAge() {
         return;
     }
 
+    //check of de gebruiker niet jonger is dan 10 of ouder dan 100
+
+
     //Add result of calculations to the totalMonths var
     TotalMonths += ((curD.getFullYear() - year) * 12);//every year is + 12 years
     TotalMonths += ((curD.getMonth() + 1) - month);//add the differnece in months
@@ -115,6 +129,19 @@ function UpdateAge() {
     //calculate years and months for output
     var Years = Math.floor(TotalMonths / 12);
     var Months = Math.floor(TotalMonths % 12);
+
+    //check if the user is younger than 10 years old or older than 100
+    if (Years < 10) {
+        outputElement.innerHTML = `<p style="color:red;">Je bent te jong!</p>`
+        Valid = false
+        return;
+    } else if (Years > 100) {
+        outputElement.innerHTML = `<p style="color:red;">U bent te oud!</p>`
+        Valid = false
+        return;
+    }
+
+    Age = Years;
 
     //if statements to check if user is jaarig, maandig or none
     if ((curD.getDate() == day) && ((curD.getMonth() + 1) == month)) {//user is jarig
@@ -132,6 +159,8 @@ function UpdateAge() {
         <p id="JAAR"><b>${Years}</b> jaar en <b>${Months}</b> maanden.</p>
         <p id="MAANDEN"><b>${TotalMonths}</b> Maanden</p>`
     }
+
+    Valid = true
 }
 
 //this is the function to calculate the string of the user birthday
@@ -219,7 +248,7 @@ function CheckValid() {
     }
 
     //enable or disable button on state
-    if (Enable) {
+    if (Enable && Valid) {
         document.getElementById('SubmitDiv').className = 'Submit SUB'
         document.getElementById('SUBMIT').disabled = false
     } else {
@@ -242,7 +271,6 @@ function MaxInput() {
     }
 }
 
-
 function Submit() {
     //Check if all the inputs are valid
     CheckDayOfBirth();
@@ -250,13 +278,13 @@ function Submit() {
 
     //find the main content div
     var MainDiv = document.getElementById('content')
-    
-    if(BirthTrue == true && MathTrue == true){
+
+    if (BirthTrue == true && MathTrue == true) {
         Access = true
     }
 
     if (!DevMode) {
-        if(Access){
+        if (Access) {
             MainDiv.innerHTML = `
         <div class="school">
             <div class="CenterT GREEN">
@@ -265,13 +293,90 @@ function Submit() {
             </div>
         </div>`
         } else {
+            //question about art
+            if (!BirthTrue) {
+                notCorrect()
+                return;
+            }
+
+            var MainDiv = document.getElementById('content')
+
+            //array with questions
+            var Question = [
+                {
+                    "image": "https://images1.persgroep.net/rcs/HhmNPvN1JAh2oyrnAY39Osq5dxU/diocontent/152197669/_fitwidth/1240?appId=93a17a8fd81db0de025c8abd1cca1279&quality=0.9",
+                    "answers": [
+                        '<a href="javascript:correct()" style="color:white;text-decoration:none;">De nachtwacht</a>',
+                        '<a href="javascript:notCorrect()" class="answer" >De sterrennacht</a>',
+                        '<a href="javascript:notCorrect()" class="answer" >Het vrolijke huisgezin</a>',
+                    ]
+                },
+                {
+                    "image": "https://cdn.britannica.com/78/43678-050-F4DC8D93/Starry-Night-canvas-Vincent-van-Gogh-New-1889.jpg",
+                    "answers": [
+                        '<a href="javascript:correct()" style="color:white;text-decoration:none">De sterrennacht</a>',
+                        '<a href="javascript:notCorrect()" class="answer" >De nachtwacht</a>',
+                        '<a href="javascript:notCorrect()" class="answer" >Het vrolijke huisgezin</a>',
+                    ]
+                },
+                {
+                    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Jan_Steen_Vrolijke_huisgezin.jpg/1200px-Jan_Steen_Vrolijke_huisgezin.jpg",
+                    "answers": [
+                        '<a href="javascript:correct()" style="color:white;text-decoration:none">Het vrolijke huisgezin</a>',
+                        '<a href="javascript:notCorrect()" class="answer" >De sterrennacht</a>',
+                        '<a href="javascript:notCorrect()" class="answer" >De nachtwacht</a>',
+                    ]
+                }
+            ]
+
+            //get a random question to ask to the users
+            var ChosenQuestion = Question[Math.floor(Math.random() * Question.length)]
+            //shuffle the ansers array
+            var Answers = shuffle(ChosenQuestion.answers)
+            //push the data to the html
             MainDiv.innerHTML = `
+                    <div class="school">
+                        <div class="TITLE">Toelating Studie</div>
+                        
+                        <div class="FORM">
+                            <div class="LEEFTIJD">
+                                <p class="TITLE">QUIZ</p>
+                                <p style="margin-bottom:15px">Hoe heet dit schilderij?</p>
+                                <img src="${ChosenQuestion.image}" style="width: 300px; margin-left:auto;margin-right:auto; border:2px solid white;">
+                                <br><br>
+                                ${Answers[0]}
+                                <br><br>
+                                ${Answers[1]}
+                                <br><br>
+                                ${Answers[2]}
+                                </div>
+                            </div>
+                        </div>
+                    </div>`
+        }
+    }
+}
+
+//redirect the user to the access page
+function correct() {
+    var MainDiv = document.getElementById('content')
+    MainDiv.innerHTML = `
+        <div class="school">
+            <div class="CenterT GREEN">
+            <p>WELKOM</p>
+            <a href="/school"><button class="EndB">Terug</button></a>
+            </div>
+        </div>`
+}
+
+//redirect the user to the no-access page
+function notCorrect() {
+    var MainDiv = document.getElementById('content')
+    MainDiv.innerHTML = `
         <div class="school">
             <div class="CenterT RED">
             <p>GEEN TOEGANG</p>
-            <a href="/school"><button class="EndB" >Terug</button></a>
-            </div>       
+            <a href="/school"><button class="EndB">Terug</button></a>
+            </div>
         </div>`
-        }
-    }
 }

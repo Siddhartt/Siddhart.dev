@@ -190,3 +190,12 @@
 .RED{
     color: red;
 }
+
+.answer{
+    color: white;
+    text-decoration: none;
+}
+
+.answer:hover{
+    cursor: pointer;
+}

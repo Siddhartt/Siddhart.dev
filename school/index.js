@@ -122,7 +122,7 @@ function UpdateAge() {
         <p class="Celebrate">🎉 Gefeliciteerd! 🎉</p>
         <p id="JAAR"><b>${Years}</b> jaar en <b>${Months}</b> maanden.</p>
         <p id="MAANDEN"><b>${TotalMonths}</b> Maanden</p>`
-    } else if ((curD.getMonth() + 1) == month) {//user is maandig
+    } else if (curD.getDate() == day) {//user is maandig
         outputElement.innerHTML = `
         <p class="Celebrate">🎉 Gefeliciteerd Maandige! 🎉</p>
         <p id="JAAR"><b>${Years}</b> jaar en <b>${Months}</b> maanden.</p>

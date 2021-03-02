@@ -1,0 +1,57 @@
+import time
+import math
+line = "--------------------------------------------------"
+
+#variabele waarden
+snelheid = 10000 # ms/s
+
+#vaste waarden
+Height = 300000 #m
+massa = 100000 #kg
+deltaT = 60 #s
+a = 2463.6 #oppvervlakte
+c = 0.04 #constante
+
+#constante atmosphere
+tr = 0.0125 #kg/m3
+st = 0.000125 #kg/m3
+me = 0.0000125 #kg/m3
+th = 0.00000000000000125 #kg/m3
+
+#hitte
+heat = 0;
+
+def init():
+    print("init vars")
+init()
+
+while True and (Height >= 0):
+    time.sleep(1)
+    
+    #define p
+    if(Height >= 85000 and Height <= 700000):
+        p = th
+    elif(Height >= 50000 and Height <= 85000):
+        p = me
+    elif(Height >= 20000 and Height <= 50000):
+        p = st
+    elif(Height >= 0 and Height <= 20000):
+        p = tr
+
+    r1 = ((snelheid ** 2) / 9.81) 
+    weerstandsKracht = (0.5 * p * (snelheid ** 2) * c * a) #bereken de weerstandskracht
+    deltaV = ((weerstandsKracht * deltaT) / massa)   
+    snelheid -= deltaV
+
+    r2 = ((snelheid ** 2) / 9.81) 
+    deltaR = (r1 - r2)
+
+    Height -= deltaR
+
+    print(line)
+    print("weerstandskracht: " + str(weerstandsKracht))
+    print("delta V: " + str(deltaV))
+    print("nieuwe snelheid: " + str(snelheid))
+    print("Hoogte: " + str(Height))
+    print("Hitte: " + str(heat))
+    print(line)
